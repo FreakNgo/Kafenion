@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kafenion — Birmingham</title>
+<meta name="description" content="Kafenion, a neighbourhood café on Sycamore Rd, Birmingham — good coffee, simple food, a place to slow down.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:        #f6f3ec;
+    --panel:     #ffffff;
+    --ink:       #2a2a28;
+    --ink-soft:  #6b6862;
+    --teal:      #3e6e7a;
+    --teal-deep: #2f565f;
+    --blush:     #d98e86;
+    --sage:      #93a784;
+    --line:      #e2ddce;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif; font-size:16px; line-height:1.65; -webkit-font-smoothing:antialiased; }
+  h1,h2,h3,.display{ font-family:'Instrument Serif', serif; color:var(--ink); margin:0; font-weight:400; letter-spacing:-0.01em; }
+  p{ margin:0; }
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+  ul{ margin:0; padding:0; list-style:none; }
+  a:focus-visible, button:focus-visible{ outline:2.5px solid var(--teal); outline-offset:3px; border-radius:4px; }
+
+  .wrap{ max-width:1120px; margin:0 auto; padding:0 clamp(20px,5vw,56px); }
+
+  /* NAV */
+  header{ position:sticky; top:0; z-index:50; background:rgba(246,243,236,0.88); backdrop-filter:blur(10px) saturate(1.05); -webkit-backdrop-filter:blur(10px) saturate(1.05); border-bottom:1px solid var(--line); }
+  nav.wrap{ display:flex; align-items:center; justify-content:space-between; height:76px; }
+  .brand{ display:flex; align-items:center; gap:9px; font-family:'Instrument Serif', serif; font-size:1.5rem; color:var(--ink); }
+  .brand svg{ width:26px; height:26px; }
+  .navlinks{ display:flex; gap:2rem; }
+  .navlinks a{ font-size:0.94rem; font-weight:600; color:var(--ink-soft); position:relative; padding:4px 0; transition:color .25s; }
+  .navlinks a::after{ content:''; position:absolute; left:0; right:100%; bottom:-2px; height:2px; background:var(--blush); transition:right .28s ease; }
+  .navlinks a:hover{ color:var(--ink); } .navlinks a:hover::after{ right:0; }
+  @media(max-width:820px){ .navlinks{ display:none; } }
+
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 22px; border-radius:100px; font-weight:600; font-size:0.92rem; border:1px solid transparent; white-space:nowrap; transition:transform .25s ease, box-shadow .25s ease, background .25s ease; }
+  .btn-teal{ background:var(--teal); color:#fff; box-shadow:0 8px 20px -8px rgba(62,110,122,0.5); }
+  .btn-teal:hover{ background:var(--teal-deep); transform:translateY(-2px); }
+  .btn-ghost{ background:transparent; color:var(--ink); border-color:var(--ink); }
+  .btn-ghost:hover{ background:var(--ink); color:var(--bg); transform:translateY(-2px); }
+
+  /* HERO */
+  .hero{ padding:clamp(56px,8vw,96px) 0 clamp(44px,6vw,74px); overflow:hidden; }
+  .hero .wrap{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:clamp(24px,5vw,60px); align-items:center; }
+  @media(max-width:900px){ .hero .wrap{ grid-template-columns:1fr; } .flat-lay{ order:-1; } }
+
+  .kicker{ font-family:'Instrument Serif', serif; font-style:italic; color:var(--teal); font-size:1.15rem; opacity:0; transform:translateY(10px); animation:riseIn .7s cubic-bezier(.22,.9,.3,1) .1s forwards; }
+  .hero h1{ font-weight:400; font-size:clamp(2.6rem,5.6vw,4.1rem); line-height:1.08; margin:14px 0 20px; max-width:15ch; }
+  .hero h1 span{ display:block; opacity:0; transform:translateY(20px); animation:riseIn .8s cubic-bezier(.22,.9,.3,1) forwards; }
+  .hero h1 span:nth-child(1){ animation-delay:.24s; }
+  .hero h1 span:nth-child(2){ animation-delay:.38s; font-style:italic; color:var(--teal); }
+  .hero p.lead{ font-size:1.12rem; color:var(--ink-soft); max-width:42ch; margin-bottom:30px; opacity:0; transform:translateY(16px); animation:riseIn .8s cubic-bezier(.22,.9,.3,1) .52s forwards; }
+  .hero-ctas{ display:flex; flex-wrap:wrap; gap:14px; opacity:0; transform:translateY(16px); animation:riseIn .8s cubic-bezier(.22,.9,.3,1) .66s forwards; }
+  .hero-loc{ margin-top:26px; display:flex; gap:10px; align-items:flex-start; font-size:0.92rem; color:var(--ink-soft); opacity:0; animation:riseIn .8s cubic-bezier(.22,.9,.3,1) .8s forwards; }
+  .hero-loc svg{ width:18px; height:18px; flex:none; margin-top:2px; color:var(--teal); }
+  @keyframes riseIn{ to{ opacity:1; transform:none; } }
+
+  .flat-lay{ position:relative; max-width:420px; margin:0 auto; opacity:0; animation:fadeArt 1s ease .3s forwards; }
+  .flat-lay svg{ width:100%; }
+  @keyframes fadeArt{ to{ opacity:1; } }
+  .steam{ animation:rise 3.6s ease-in-out infinite; transform-origin:center bottom; }
+  .steam.s2{ animation-delay:.6s; }
+  @keyframes rise{ 0%{ transform:translateY(0); opacity:0.18; } 50%{ transform:translateY(-8px); opacity:0.5; } 100%{ transform:translateY(-16px); opacity:0; } }
+  .leaf-sway{ animation:sway 4.5s ease-in-out infinite; transform-origin:bottom center; }
+  @keyframes sway{ 0%,100%{ transform:rotate(-3deg); } 50%{ transform:rotate(3deg); } }
+
+  /* SECTIONS */
+  section{ padding:clamp(60px,8vw,100px) 0; }
+  .section-head{ max-width:600px; margin-bottom:clamp(34px,5vw,50px); }
+  .section-head h2{ font-weight:400; font-size:clamp(1.9rem,3.6vw,2.7rem); line-height:1.16; }
+  .section-head p{ color:var(--ink-soft); margin-top:14px; font-size:1.02rem; }
+
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s cubic-bezier(.22,.9,.3,1), transform .8s cubic-bezier(.22,.9,.3,1); }
+  .reveal.is-visible{ opacity:1; transform:none; }
+
+  /* ABOUT */
+  .about-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
+  @media(max-width:820px){ .about-grid{ grid-template-columns:1fr; } }
+  .about-card{ background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:28px 24px; }
+  .about-card svg{ width:28px; height:28px; color:var(--teal); margin-bottom:16px; }
+  .about-card h3{ font-family:'Inter',sans-serif; font-weight:700; font-size:1.05rem; margin-bottom:8px; }
+  .about-card p{ color:var(--ink-soft); font-size:0.95rem; }
+
+  /* MENU */
+  .menu-panel{ background:var(--teal-deep); border-radius:26px; padding:clamp(36px,6vw,64px); color:#eef4f4; }
+  .menu-panel .section-head h2, .menu-panel .kicker{ color:#eef4f4; }
+  .menu-panel .section-head p{ color:#bcd3d5; }
+  .menu-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:32px 40px; margin-top:24px; }
+  @media(max-width:820px){ .menu-cols{ grid-template-columns:1fr; } }
+  .menu-cat h3{ font-family:'Instrument Serif', serif; font-weight:400; font-size:1.2rem; padding-bottom:10px; border-bottom:1px solid rgba(238,244,244,0.25); margin-bottom:12px; }
+  .menu-item{ padding:9px 0; border-bottom:1px dashed rgba(238,244,244,0.18); font-weight:600; }
+  .menu-item:last-child{ border-bottom:none; }
+  .menu-item span{ display:block; font-weight:400; color:#bcd3d5; font-size:0.86rem; margin-top:2px; }
+  .menu-note{ margin-top:32px; font-size:0.92rem; color:#bcd3d5; }
+
+  /* VISIT */
+  .visit-grid{ display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:stretch; }
+  @media(max-width:880px){ .visit-grid{ grid-template-columns:1fr; } }
+  .visit-card{ background:var(--panel); border:1px solid var(--line); border-radius:22px; padding:clamp(28px,4vw,38px); display:flex; flex-direction:column; gap:22px; }
+  .visit-row{ display:flex; gap:16px; align-items:flex-start; }
+  .visit-row svg{ width:22px; height:22px; flex:none; color:var(--teal); margin-top:2px; }
+  .visit-row b{ display:block; font-size:0.82rem; text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); font-weight:700; margin-bottom:3px; }
+  .visit-row .val{ font-size:1.05rem; font-weight:700; }
+  .visit-row a.val:hover{ color:var(--teal); }
+  .map-frame{ border-radius:22px; overflow:hidden; border:1px solid var(--line); min-height:280px; }
+  .map-frame iframe{ width:100%; height:100%; min-height:280px; border:0; display:block; }
+
+  /* FOOTER */
+  footer{ background:var(--ink); color:#f1efe9; padding:44px 0 28px; }
+  .footer-top{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:20px; align-items:center; padding-bottom:24px; border-bottom:1px solid rgba(241,239,233,0.18); }
+  .footer-brand{ font-family:'Instrument Serif', serif; font-size:1.4rem; }
+  .footer-links{ display:flex; gap:22px; flex-wrap:wrap; }
+  .footer-links a{ font-size:0.9rem; color:#cdc9bf; transition:color .2s; }
+  .footer-links a:hover{ color:#fff; }
+  .footer-bottom{ padding-top:20px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.8rem; color:#9c988e; }
+
+  /* DIRECTIONS FAB */
+  .dir-fab{ position:fixed; right:22px; bottom:22px; z-index:60; width:58px; height:58px; border-radius:50%; background:var(--teal); color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 10px 26px -8px rgba(62,110,122,0.55); }
+  .dir-fab svg{ width:26px; height:26px; }
+  .dir-fab::before{ content:''; position:absolute; inset:0; border-radius:50%; border:2px solid var(--teal); animation:pulseRing 2.6s ease-out infinite; }
+  @keyframes pulseRing{ 0%{ transform:scale(1); opacity:.6; } 100%{ transform:scale(1.7); opacity:0; } }
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+    .reveal{ opacity:1; transform:none; }
+    .kicker,.hero h1 span,.hero p.lead,.hero-ctas,.hero-loc,.flat-lay{ opacity:1; transform:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap">
+    <a href="#top" class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9h13a3 3 0 0 1 0 6h-1"/><path d="M4 9v7a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/></svg>
+      Kafenion
+    </a>
+    <div class="navlinks">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#visit">Visit</a>
+    </div>
+    <a class="btn btn-teal" href="#visit">Find us</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="kicker">Sycamore Rd, Birmingham</span>
+        <h1>
+          <span>Coffee,</span>
+          <span>done properly.</span>
+        </h1>
+        <p class="lead">Kafenion is a neighbourhood café in Birmingham — good coffee, simple food, and a place to slow down for a while.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-teal" href="https://www.google.com/maps/search/?api=1&query=35+Sycamore+Rd%2C+Birmingham+B30+2AA%2C+UK" target="_blank" rel="noopener">Get directions</a>
+          <a class="btn btn-ghost" href="#menu">See the menu</a>
+        </div>
+        <div class="hero-loc">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+          <span>35 Sycamore Rd, Birmingham B30 2AA, UK</span>
+        </div>
+      </div>
+
+      <div class="flat-lay">
+        <svg viewBox="0 0 400 400" fill="none">
+          <circle cx="200" cy="200" r="170" fill="#ffffff" stroke="#e2ddce" stroke-width="1.4"/>
+          <ellipse cx="150" cy="230" rx="70" ry="70" fill="#ffffff" stroke="#2a2a28" stroke-width="2"/>
+          <ellipse cx="150" cy="230" rx="48" ry="48" fill="#2a2a28" opacity="0.9"/>
+          <path d="M215 225c22-6 36 4 36 16s-14 22-36 16" stroke="#2a2a28" stroke-width="2" fill="none"/>
+          <path class="steam s1" d="M135 175c-6-11 5-14 0-25" stroke="#2a2a28" stroke-width="1.8" stroke-linecap="round" opacity="0.4"/>
+          <path class="steam s2" d="M155 175c-6-11 5-14 0-25" stroke="#2a2a28" stroke-width="1.8" stroke-linecap="round" opacity="0.4"/>
+          <path d="M255 285c22 4 40-4 46-18 6-16-4-30-20-32-4-14-20-22-34-16-14-16-38-10-42 8" fill="#d98e86" opacity="0.9"/>
+          <g class="leaf-sway">
+            <ellipse cx="300" cy="150" rx="16" ry="34" fill="#93a784"/>
+            <ellipse cx="285" cy="140" rx="13" ry="28" fill="#7f9871"/>
+            <rect x="292" y="180" width="14" height="20" rx="3" fill="#ffffff" stroke="#2a2a28" stroke-width="1.4"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">About</span>
+        <h2>A calm corner on the high street</h2>
+        <p>No rush, no queue-jumping — just a good cup of coffee and somewhere comfortable to sit with it.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 9h13a3 3 0 0 1 0 6h-1"/><path d="M4 9v7a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3V9"/></svg>
+          <h3>Freshly brewed coffee</h3>
+          <p>Made to order, cup by cup.</p>
+        </div>
+        <div class="about-card reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12c0-4 4-8 8-8s8 4 8 8-4 8-8 8-8-4-8-8z"/><path d="M12 8v4l3 2"/></svg>
+          <h3>Simple, honest food</h3>
+          <p>Pastries, toasties and a few daily bakes.</p>
+        </div>
+        <div class="about-card reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10l9-6 9 6"/><path d="M5 9v10h14V9"/></svg>
+          <h3>A place to sit a while</h3>
+          <p>Whether it's five minutes or an afternoon.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="wrap">
+      <div class="menu-panel reveal">
+        <div class="section-head" style="margin-bottom:0;">
+          <span class="kicker">On the menu</span>
+          <h2>A short, honest menu</h2>
+          <p>A sense of what's usually on offer — ask in-house for the full menu and today's specials.</p>
+        </div>
+        <div class="menu-cols">
+          <div class="menu-cat">
+            <h3>Coffee</h3>
+            <div class="menu-item">Flat White<span>Espresso, steamed milk</span></div>
+            <div class="menu-item">Filter Coffee<span>Fresh pot, brewed daily</span></div>
+          </div>
+          <div class="menu-cat">
+            <h3>Bakes</h3>
+            <div class="menu-item">Butter Croissant<span>Baked fresh each morning</span></div>
+            <div class="menu-item">Toastie<span>A few fillings to choose from</span></div>
+          </div>
+          <div class="menu-cat">
+            <h3>Cold Drinks</h3>
+            <div class="menu-item">Iced Latte<span>Espresso over ice</span></div>
+            <div class="menu-item">Sparkling Water<span>Still or sparkling</span></div>
+          </div>
+        </div>
+        <p class="menu-note">Prices and daily specials are on the board in-store.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section id="visit">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="kicker">Find us</span>
+        <h2>Come and say hello</h2>
+        <p>Kafenion is on Sycamore Rd in Birmingham — pop in whenever suits.</p>
+      </div>
+
+      <div class="visit-grid">
+        <div class="visit-card reveal">
+          <div class="visit-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+            <div><b>Address</b><a class="val" href="https://www.google.com/maps/search/?api=1&query=35+Sycamore+Rd%2C+Birmingham+B30+2AA%2C+UK" target="_blank" rel="noopener">35 Sycamore Rd, Birmingham B30 2AA, UK</a></div>
+          </div>
+          <a class="btn btn-teal" style="align-self:flex-start;" href="https://www.google.com/maps/search/?api=1&query=35+Sycamore+Rd%2C+Birmingham+B30+2AA%2C+UK" target="_blank" rel="noopener">Get directions</a>
+        </div>
+
+        <div class="map-frame reveal">
+          <iframe src="https://www.google.com/maps?q=35+Sycamore+Rd,+Birmingham+B30+2AA,+UK&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Kafenion location map"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-top">
+    <span class="footer-brand">Kafenion</span>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#visit">Visit</a>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span>35 Sycamore Rd, Birmingham B30 2AA, UK</span>
+    <span>© 2026 Kafenion</span>
+  </div>
+</footer>
+
+<a class="dir-fab" href="https://www.google.com/maps/search/?api=1&query=35+Sycamore+Rd%2C+Birmingham+B30+2AA%2C+UK" target="_blank" rel="noopener" aria-label="Get directions to Kafenion">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+</a>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { threshold:0.15 });
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
